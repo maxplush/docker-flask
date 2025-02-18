@@ -1,22 +1,25 @@
-FROM ubuntu:22.04  # Use the latest stable Ubuntu version
+FROM ubuntu
 
-LABEL maintainer="Max Plush <mplush@pitzer.edu>"
+LABEL MaxPlush="mplush@pitzer.edu"
 
 # Install dependencies
 RUN apt-get update -y && \
     apt-get install -y python3-pip python3-dev
 
-WORKDIR /app
-
 # Copy the requirements file to the container
 COPY ./requirements.txt /app/requirements.txt
 
+WORKDIR /app
+
 # Install Python dependencies
-RUN pip3 install -r requirements.txt
+RUN python3 -m venv venv
+RUN venv/bin/pip install -r requirements.txt
 
 # Copy the rest of the application files
 COPY . /app
 
+ENV PATH="/app/venv/bin:$PATH"
+
 # Command to run the application
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+ENTRYPOINT [ "python" ]
+CMD [ "app.py" ]
