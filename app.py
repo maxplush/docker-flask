@@ -1,5 +1,3 @@
-# flask_web/app.py
-
 From flask import Flask
 app = Flask(__name__)
 
