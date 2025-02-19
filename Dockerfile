@@ -11,15 +11,13 @@ COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
+RUN python -m pip install --upgrade pip==20.2.4
+
 # Install Python dependencies
-#RUN python -m venv venv
-#RUN venv/bin/pip install -r requirements.txt
 RUN pip install -r requirements.txt
 
 # Copy the rest of the application files
 COPY . /app
-
-# ENV PATH="/app/venv/bin:$PATH"
 
 # Command to run the application
 ENTRYPOINT [ "python" ]
